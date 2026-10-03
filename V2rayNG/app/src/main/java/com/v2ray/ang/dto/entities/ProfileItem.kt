@@ -37,6 +37,8 @@ data class ProfileItem(
     var xhttpExtra: String? = null,
     var finalMask: String? = null,
 
+    var masqueHeaders: String? = null,
+
     var security: String? = null,
     var sni: String? = null,
     var alpn: String? = null,

@@ -32,6 +32,7 @@ object CoreOutboundBuilder {
             EConfigType.WIREGUARD -> toOutboundWireguard(profileItem)
             EConfigType.HYSTERIA2 -> toOutboundHysteria2(profileItem)
             EConfigType.HTTP -> toOutboundHttp(profileItem)
+            EConfigType.MASQUE -> toOutboundMasque(profileItem)
             else -> null
         }
 
@@ -53,6 +54,7 @@ object CoreOutboundBuilder {
                 || protocol.equals(EConfigType.WIREGUARD.name, true)
                 || protocol.equals(EConfigType.HYSTERIA2.name, true)
                 || protocol.equals(EConfigType.HYSTERIA.name, true)
+                || protocol.equals(EConfigType.MASQUE.name, true)
             ) {
                 muxEnabled = false
             } else if (outbound.streamSettings?.network == NetworkType.XHTTP.type) {
@@ -104,6 +106,12 @@ object CoreOutboundBuilder {
             EConfigType.HYSTERIA,
             EConfigType.HYSTERIA2 -> OutboundBean(
                 protocol = EConfigType.HYSTERIA.name.lowercase(),
+                settings = OutboundBean.OutSettingsBean(),
+                streamSettings = OutboundBean.StreamSettingsBean()
+            )
+
+            EConfigType.MASQUE -> OutboundBean(
+                protocol = EConfigType.MASQUE.name.lowercase(),
                 settings = OutboundBean.OutSettingsBean(),
                 streamSettings = OutboundBean.StreamSettingsBean()
             )
@@ -301,6 +309,32 @@ object CoreOutboundBuilder {
             server.address = getServerAddress(profileItem)
             server.port = profileItem.serverPort.orEmpty().toInt()
             server.version = 2
+        }
+
+        val sni = outboundBean.streamSettings?.let {
+            populateTransportSettings(it, profileItem)
+        }
+
+        outboundBean.streamSettings?.let {
+            populateTlsSettings(it, profileItem, sni)
+        }
+
+        return outboundBean
+    }
+
+    private fun toOutboundMasque(profileItem: ProfileItem): OutboundBean? {
+        val outboundBean = createInitOutbound(EConfigType.MASQUE) ?: return null
+        profileItem.network = NetworkType.MASQUE.type
+        profileItem.security = AppConfig.TLS
+
+        outboundBean.settings?.let { server ->
+            server.address = getServerAddress(profileItem)
+            server.port = profileItem.serverPort.orEmpty().toInt()
+            server.remoteDNS = profileItem.remoteDNS
+                ?.split(",")
+                ?.map { it.trim() }
+                ?.filter { it.isNotEmpty() }
+                ?.ifEmpty { null }
         }
 
         val sni = outboundBean.streamSettings?.let {
@@ -533,6 +567,17 @@ object CoreOutboundBuilder {
                 }
                 streamSettings.hysteriaSettings = hysteriaSetting
                 streamSettings.finalmask = finalmask
+            }
+
+            NetworkType.MASQUE.type -> {
+                val masqueSetting = OutboundBean.StreamSettingsBean.MasqueSettingsBean(
+                    host = host.nullIfBlank(),
+                    path = path.nullIfBlank(),
+                    user = profileItem.username.nullIfBlank(),
+                    pass = profileItem.password.nullIfBlank(),
+                    headers = profileItem.masqueHeaders.nullIfBlank()?.let { JsonUtil.parseString(it) }
+                )
+                streamSettings.masqueSettings = masqueSetting
             }
         }
         finalMask?.let {

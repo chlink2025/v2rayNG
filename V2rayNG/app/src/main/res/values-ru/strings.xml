@@ -45,6 +45,7 @@
     <string name="menu_item_import_config_manually_trojan">Добавить Trojan</string>
     <string name="menu_item_import_config_manually_wireguard">Добавить WireGuard</string>
     <string name="menu_item_import_config_manually_hysteria2">Добавить Hysteria2</string>
+    <string name="menu_item_import_config_manually_masque">Добавить MASQUE</string>
     <string name="confirm_delete_visible_profiles">Удалить все отображаемые профили?</string>
     <string name="confirm_delete_duplicate_profiles">Удалить все отображаемые дубликаты профилей?</string>
     <string name="confirm_delete_invalid_profiles">Выполните проверку перед удалением! Удалить все отображаемые нерабочие профили?</string>
@@ -131,6 +132,10 @@
     <string name="server_lab_xhttp_mode">Режим XHTTP</string>
     <string name="server_lab_xhttp_extra">Необработанный JSON XHTTP Extra, формат: { XHTTPObject }</string>
     <string name="server_lab_final_mask">Необработанный JSON FinalMask, формат: { FinalMaskObject }</string>
+    <string name="server_lab_masque_host">host (необязательно, authority HTTP/3; по умолчанию SNI[:порт])</string>
+    <string name="server_lab_masque_path">path (необязательно, по умолчанию /.well-known/masque/ip/*/*/)</string>
+    <string name="server_lab_masque_headers">headers — сырой JSON-объект (необязательно), например {"User-Agent":"chrome"}</string>
+    <string name="server_lab_masque_remote_dns">remoteDNS (необязательно, IPv4/IPv6 через запятую)</string>
     <string name="server_lab_ech_config_list" translatable="false">echConfigList</string>
     <string name="server_lab_verify_peer_cert_by_name">Проверять сертификат узла по имени</string>
     <string name="server_lab_pinned_ca256">Отпечаток сертификата (SHA-256)</string>

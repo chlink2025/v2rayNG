@@ -45,6 +45,7 @@
     <string name="menu_item_import_config_manually_trojan">[Trojan] যোগ করুন</string>
     <string name="menu_item_import_config_manually_wireguard">[WireGuard] যোগ করুন</string>
     <string name="menu_item_import_config_manually_hysteria2">[Hysteria2] যোগ করুন</string>
+    <string name="menu_item_import_config_manually_masque">[MASQUE] যোগ করুন</string>
     <string name="confirm_delete_visible_profiles">আপনি কি বর্তমানে প্রদর্শিত সব প্রোফাইল মুছে ফেলতে চান?</string>
     <string name="confirm_delete_duplicate_profiles">আপনি কি বর্তমানে প্রদর্শিত সব সদৃশ প্রোফাইল মুছে ফেলতে চান?</string>
     <string name="confirm_delete_invalid_profiles">প্রথমে প্রোফাইলগুলো পরীক্ষা করুন। আপনি কি বর্তমানে প্রদর্শিত সব অবৈধ প্রোফাইল মুছে ফেলতে চান?</string>
@@ -131,6 +132,10 @@
     <string name="server_lab_xhttp_mode">XHTTP মোড</string>
     <string name="server_lab_xhttp_extra">XHTTP Extra-এর কাঁচা JSON, ফরম্যাট: { XHTTPObject }</string>
     <string name="server_lab_final_mask">finalMask-এর কাঁচা JSON, ফরম্যাট: { FinalMaskObject }</string>
+    <string name="server_lab_masque_host">host (ঐচ্ছিক, HTTP/3 authority; ডিফল্ট SNI[:পোর্ট])</string>
+    <string name="server_lab_masque_path">path (ঐচ্ছিক, ডিফল্ট /.well-known/masque/ip/*/*/)</string>
+    <string name="server_lab_masque_headers">headers কাঁচা JSON অবজেক্ট (ঐচ্ছিক), যেমন {"User-Agent":"chrome"}</string>
+    <string name="server_lab_masque_remote_dns">remoteDNS (ঐচ্ছিক, কমা-বিভক্ত IPv4/IPv6)</string>
     <string name="server_lab_ech_config_list" translatable="false">echConfigList</string>
     <string name="server_lab_verify_peer_cert_by_name">নাম দিয়ে পিয়ার সার্টিফিকেট যাচাই করুন</string>
     <string name="server_lab_pinned_ca256">সার্টিফিকেট ফিঙ্গারপ্রিন্ট (SHA-256)</string>

@@ -45,6 +45,7 @@
     <string name="menu_item_import_config_manually_trojan">Thêm [Trojan]</string>
     <string name="menu_item_import_config_manually_wireguard">Thêm [WireGuard]</string>
     <string name="menu_item_import_config_manually_hysteria2">Thêm [Hysteria2]</string>
+    <string name="menu_item_import_config_manually_masque">Thêm [MASQUE]</string>
     <string name="confirm_delete_visible_profiles">Bạn có chắc muốn xóa tất cả cấu hình đang hiển thị không?</string>
     <string name="confirm_delete_duplicate_profiles">Bạn có chắc muốn xóa tất cả cấu hình trùng lặp đang hiển thị không?</string>
     <string name="confirm_delete_invalid_profiles">Vui lòng kiểm tra các cấu hình trước. Bạn có chắc muốn xóa tất cả cấu hình không hợp lệ đang hiển thị không?</string>
@@ -131,6 +132,10 @@
     <string name="server_lab_xhttp_mode">Chế độ XHTTP</string>
     <string name="server_lab_xhttp_extra">JSON thô của XHTTP Extra, định dạng: { XHTTPObject }</string>
     <string name="server_lab_final_mask">JSON thô của finalMask, định dạng: { FinalMaskObject }</string>
+    <string name="server_lab_masque_host">host (tùy chọn, authority HTTP/3; mặc định SNI[:cổng])</string>
+    <string name="server_lab_masque_path">path (tùy chọn, mặc định /.well-known/masque/ip/*/*/)</string>
+    <string name="server_lab_masque_headers">headers JSON thô (tùy chọn), ví dụ {"User-Agent":"chrome"}</string>
+    <string name="server_lab_masque_remote_dns">remoteDNS (tùy chọn, IPv4/IPv6 cách nhau bằng dấu phẩy)</string>
     <string name="server_lab_ech_config_list" translatable="false">echConfigList</string>
     <string name="server_lab_verify_peer_cert_by_name">Xác minh chứng chỉ ngang hàng theo tên</string>
     <string name="server_lab_pinned_ca256">Dấu vân tay chứng chỉ (SHA-256)</string>

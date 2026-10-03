@@ -47,6 +47,7 @@ class ServerUiState(
     path: String = "",
     xhttpExtra: String = "",
     finalMask: String = "",
+    masqueHeaders: String = "",
     seed: String = "",
     kcpMtu: String = "",
     kcpTti: String = "",
@@ -96,6 +97,7 @@ class ServerUiState(
     var path by mutableStateOf(path)
     var xhttpExtra by mutableStateOf(xhttpExtra)
     var finalMask by mutableStateOf(finalMask)
+    var masqueHeaders by mutableStateOf(masqueHeaders)
     var seed by mutableStateOf(seed)
     var kcpMtu by mutableStateOf(kcpMtu)
     var kcpTti by mutableStateOf(kcpTti)
@@ -126,6 +128,7 @@ class ServerUiState(
         val isSocksOrHttp = configType == EConfigType.SOCKS || configType == EConfigType.HTTP
         val isWireguard = configType == EConfigType.WIREGUARD
         val isHysteria2 = configType == EConfigType.HYSTERIA2
+        val isMasque = configType == EConfigType.MASQUE
 
         return initialConfig.copy(
             configType = configType,
@@ -139,7 +142,7 @@ class ServerUiState(
                 else -> null
             },
             flow = if (isVless) flow else null,
-            username = if (isSocksOrHttp) username else null,
+            username = if (isSocksOrHttp || isMasque) username else null,
             secretKey = if (isWireguard) secretKey else null,
             publicKey = when {
                 isWireguard -> publicKey
@@ -150,7 +153,7 @@ class ServerUiState(
             reserved = if (isWireguard) reserved else null,
             localAddress = if (isWireguard) localAddress else null,
             mtu = if (isWireguard) mtu.toIntOrNull() else null,
-            remoteDNS = if (isWireguard) remoteDNS else null,
+            remoteDNS = if (isWireguard || isMasque) remoteDNS else null,
             obfsPassword = if (isHysteria2) obfsPassword else null,
             portHopping = if (isHysteria2) portHopping else null,
             portHoppingInterval = if (isHysteria2) portHoppingInterval else null,
@@ -166,6 +169,7 @@ class ServerUiState(
             path = path,
             xhttpExtra = xhttpExtra.nullIfBlank(),
             finalMask = finalMask.nullIfBlank(),
+            masqueHeaders = if (isMasque) masqueHeaders.nullIfBlank() else null,
             seed = seed.nullIfBlank(),
             kcpMtu = kcpMtu.toIntOrNull(),
             kcpTti = kcpTti.toIntOrNull(),
@@ -224,6 +228,7 @@ class ServerUiState(
                 path = initialConfig.path ?: "",
                 xhttpExtra = initialConfig.xhttpExtra ?: "",
                 finalMask = initialConfig.finalMask ?: "",
+                masqueHeaders = initialConfig.masqueHeaders ?: "",
                 seed = initialConfig.seed ?: "",
                 kcpMtu = initialConfig.kcpMtu?.toString() ?: "",
                 kcpTti = initialConfig.kcpTti?.toString() ?: "",

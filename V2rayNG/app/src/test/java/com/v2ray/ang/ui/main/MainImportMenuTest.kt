@@ -40,4 +40,28 @@ class MainImportMenuTest {
         )
         assertEquals(expected, serverMenuActions(isComplexProfile = true, includeManagementActions = true))
     }
+
+    @Test
+    fun profileWithoutUriShareKeepsOnlyFullContentShare() {
+        assertEquals(
+            listOf(ServerMenuAction.ShareFullContent),
+            serverMenuActions(
+                isComplexProfile = false,
+                includeManagementActions = false,
+                supportsUriShare = false,
+            ),
+        )
+    }
+
+    @Test
+    fun profileWithoutUriShareRetainsManagementActions() {
+        assertEquals(
+            listOf(ServerMenuAction.ShareFullContent, ServerMenuAction.Edit, ServerMenuAction.Delete),
+            serverMenuActions(
+                isComplexProfile = false,
+                includeManagementActions = true,
+                supportsUriShare = false,
+            ),
+        )
+    }
 }

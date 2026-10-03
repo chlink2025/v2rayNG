@@ -45,6 +45,7 @@
     <string name="menu_item_import_config_manually_trojan">新增 [Trojan]</string>
     <string name="menu_item_import_config_manually_wireguard">新增 [WireGuard]</string>
     <string name="menu_item_import_config_manually_hysteria2">新增 [Hysteria2]</string>
+    <string name="menu_item_import_config_manually_masque">新增 [MASQUE]</string>
     <string name="confirm_delete_visible_profiles">確定要刪除目前顯示的所有設定檔嗎？</string>
     <string name="confirm_delete_duplicate_profiles">確定要刪除目前顯示的所有重複設定檔嗎？</string>
     <string name="confirm_delete_invalid_profiles">請先測試設定檔。確定要刪除目前顯示的所有無效設定檔嗎？</string>
@@ -131,6 +132,10 @@
     <string name="server_lab_xhttp_mode">XHTTP 模式</string>
     <string name="server_lab_xhttp_extra">XHTTP Extra 原始 JSON，格式： { XHTTPObject }</string>
     <string name="server_lab_final_mask">finalMask 原始 JSON，格式：{ FinalMaskObject }</string>
+    <string name="server_lab_masque_host">host（選用，HTTP/3 權威，預設 SNI[:連接埠]）</string>
+    <string name="server_lab_masque_path">path（選用，預設 /.well-known/masque/ip/*/*/）</string>
+    <string name="server_lab_masque_headers">headers 原始 JSON 物件（選用），例如 {"User-Agent":"chrome"}</string>
+    <string name="server_lab_masque_remote_dns">remoteDNS（選用，以逗號分隔的 IPv4/IPv6）</string>
     <string name="server_lab_ech_config_list" translatable="false">echConfigList</string>
     <string name="server_lab_verify_peer_cert_by_name">Verify peer cert by name</string>
     <string name="server_lab_pinned_ca256">憑證指紋 (SHA-256)</string>

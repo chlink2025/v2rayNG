@@ -23,7 +23,8 @@ private enum class ImportMenuAction(@StringRes val labelRes: Int, val action: Ma
     Http(R.string.menu_item_import_config_manually_http, MainAction.ImportManually(EConfigType.HTTP.value)),
     Trojan(R.string.menu_item_import_config_manually_trojan, MainAction.ImportManually(EConfigType.TROJAN.value)),
     WireGuard(R.string.menu_item_import_config_manually_wireguard, MainAction.ImportManually(EConfigType.WIREGUARD.value)),
-    Hysteria2(R.string.menu_item_import_config_manually_hysteria2, MainAction.ImportManually(EConfigType.HYSTERIA2.value))
+    Hysteria2(R.string.menu_item_import_config_manually_hysteria2, MainAction.ImportManually(EConfigType.HYSTERIA2.value)),
+    Masque(R.string.menu_item_import_config_manually_masque, MainAction.ImportManually(EConfigType.MASQUE.value))
 }
 
 enum class MainMoreMenuAction(@StringRes val labelRes: Int) {
@@ -43,9 +44,10 @@ internal enum class ServerMenuAction(
     @StringRes val labelRes: Int,
     val isShareAction: Boolean,
     val supportsComplexProfiles: Boolean,
+    val requiresUriShare: Boolean = false,
 ) {
-    ShareQRCode(R.string.share_method_qrcode, isShareAction = true, supportsComplexProfiles = false),
-    ShareClipboard(R.string.share_method_clipboard, isShareAction = true, supportsComplexProfiles = false),
+    ShareQRCode(R.string.share_method_qrcode, isShareAction = true, supportsComplexProfiles = false, requiresUriShare = true),
+    ShareClipboard(R.string.share_method_clipboard, isShareAction = true, supportsComplexProfiles = false, requiresUriShare = true),
     ShareFullContent(R.string.share_method_full_content, isShareAction = true, supportsComplexProfiles = true),
     Edit(R.string.action_edit, isShareAction = false, supportsComplexProfiles = true),
     Delete(R.string.action_delete, isShareAction = false, supportsComplexProfiles = true),
@@ -54,8 +56,11 @@ internal enum class ServerMenuAction(
 internal fun serverMenuActions(
     isComplexProfile: Boolean,
     includeManagementActions: Boolean,
+    supportsUriShare: Boolean = true,
 ): List<ServerMenuAction> = ServerMenuAction.entries.filter { action ->
-    (includeManagementActions || action.isShareAction) && (!isComplexProfile || action.supportsComplexProfiles)
+    (includeManagementActions || action.isShareAction) &&
+        (!isComplexProfile || action.supportsComplexProfiles) &&
+        (supportsUriShare || !action.requiresUriShare)
 }
 
 @Composable
@@ -84,6 +89,7 @@ fun ShareMethodDialog(
     val menuActions = serverMenuActions(
         isComplexProfile = profile.configType.isComplexType(),
         includeManagementActions = more,
+        supportsUriShare = profile.configType != EConfigType.MASQUE,
     )
     SelectListDialog(
         options = menuActions,
